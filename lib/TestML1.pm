@@ -1,7 +1,7 @@
 package TestML1;
 
 use TestML1::Base;
-our $VERSION = '0.54';
+our $VERSION = '0.55';
 
 has runtime => ();
 has compiler => ();
