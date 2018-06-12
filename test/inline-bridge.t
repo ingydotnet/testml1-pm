@@ -1,11 +1,11 @@
-use TestML;
-TestML->new(
+use TestML1;
+TestML1->new(
     testml => join('', <DATA>),
 )->run;
 
 {
-    package TestML::Bridge;
-    use TestML::Util;
+    package TestML1::Bridge;
+    use TestML1::Util;
     sub upper {
         my ($self, $string) = @_;
         return str uc($string->value);

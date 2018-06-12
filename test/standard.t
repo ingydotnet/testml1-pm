@@ -1,8 +1,8 @@
 use lib -e 't' ? 't' : 'test';
-use TestML;
-use TestMLBridge;
+use TestML1;
+use TestML1Bridge;
 
-TestML->new(
+TestML1->new(
     testml => 'testml/standard.tml',
-    bridge => 'TestMLBridge',
+    bridge => 'TestML1Bridge',
 )->run;

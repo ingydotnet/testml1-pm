@@ -1,34 +1,34 @@
-= TestML Overview
+= TestML1 Overview
 
-TestML is an "Acmeist"<http://acmeism.org> software testing framework. That
+TestML1 is an "Acmeist"<http://acmeism.org> software testing framework. That
 means it is for writing tests that can be run in many different programming
 languages.
 
-The primary focus of TestML is to write tests for modules that are intended to
+The primary focus of TestML1 is to write tests for modules that are intended to
 be ported to several programming languages. (Writing modules like this happens
-to be a primary focus of Acmeism.) Using TestML, you just need to write and
-maintain one set of tests. In this sense TestML acts like a specification for
+to be a primary focus of Acmeism.) Using TestML1, you just need to write and
+maintain one set of tests. In this sense TestML1 acts like a specification for
 an Acmeist module.
 
 The git repository that tracks this Specification is called
-"testml-tml"<https://github.com/ingydotnet/testml-tml>. TestML itself is an
+"testml-tml"<https://github.com/ingydotnet/testml-tml>. TestML1 itself is an
 Acmeist module, and this repository is the test suite (and therefore the
-specification) for TestML implementations. The repository contains many files
-that end with a `.tml` extension. Each file is a TestML test. A complete TestML
+specification) for TestML1 implementations. The repository contains many files
+that end with a `.tml` extension. Each file is a TestML1 test. A complete TestML1
 implementation should pass all these tests.
 
-TestML has been designed from the viewpoint that an implementor will be chosing
+TestML1 has been designed from the viewpoint that an implementor will be chosing
 the language specific test framework that they are already familiar with, and
-will want to write lots of non-TestML tests, while still passing all the TestML
-ones. Every TestML implementation that has been ported to a given programming
-language will have a TestML.Runtime class to work with each popular testing
+will want to write lots of non-TestML1 tests, while still passing all the TestML1
+ones. Every TestML1 implementation that has been ported to a given programming
+language will have a TestML1.Runtime class to work with each popular testing
 framework in that language. So when you run the entire test suite, all the
 tests will simply Do The Right Thing, with a minimum of fuss.
 
-== Sample TestML file
+== Sample TestML1 file
 
     #!/usr/bin/env testml
-    # The line above is a Unix hashbang for executable TestML files.
+    # The line above is a Unix hashbang for executable TestML1 files.
 
     # TestML version Directive. Directives always begin with '%'.
     %TestML 0.1.0
@@ -37,13 +37,13 @@ tests will simply Do The Right Thing, with a minimum of fuss.
     # expected to run. Plan is optional and not supported by all test
     # frameworks.
     # Note: Things that begin with a capital letter, usually are specified by
-    # TestML, and lowercase items belong to the test author.
+    # TestML1, and lowercase items belong to the test author.
     Plan = 3
 
     # An implicit loop against all the Data Blocks containing both 'text' and
     # 'upper' Data Points. The `uppercase` Bridge method is called against each
     # 'text' point, and then an assertion is made that the result matches the
-    # 'upper' point. TestML will make the assertion using the whatever native,
+    # 'upper' point. TestML1 will make the assertion using the whatever native,
     # language specific test framework that has been chosen.
     *text.uppercase == *upper
 
@@ -72,7 +72,7 @@ tests will simply Do The Right Thing, with a minimum of fuss.
     --- upper
     LIVE FREE OR DIE
 
-== TestML Glossary
+== TestML1 Glossary
 
 Document ::
     A text stream that contains a Code Section and/or a Data Section (in that
@@ -111,7 +111,7 @@ Assertion ::
 
 == Data Types
 
-`Func` :: A callable TestML function.
+`Func` :: A callable TestML1 function.
 
 `Str` :: A unicode string.
 
@@ -127,7 +127,7 @@ Assertion ::
 
 == Functions
 
-TestML provides a standard library of many functions. These functions are
+TestML1 provides a standard library of many functions. These functions are
 grouped into the following categories:
 
 === Assertion Functions
@@ -171,16 +171,16 @@ False accordingly.
 
 Bridge functions are provided by a Bridge Class. Generally these functions call
 into the application that is beeing tested. A bridge class is defined in the
-native programming language, and therefore must (unlike the TestML tests
+native programming language, and therefore must (unlike the TestML1 tests
 themselves) be ported to every target language for the given project.
 
-The bridge class is not named in the TestML Document itself, but through some
-external mechanism provided by the TestML implementation for the native
+The bridge class is not named in the TestML1 Document itself, but through some
+external mechanism provided by the TestML1 implementation for the native
 language.
 
-== TestML Runtime
+== TestML1 Runtime
 
-TestML statements have a semantic system that is easy to read, but a little bit
+TestML1 statements have a semantic system that is easy to read, but a little bit
 different than traditional OO method call semantics. It works like this:
 
     a.B(c).d == e
@@ -191,7 +191,7 @@ different than traditional OO method call semantics. It works like this:
     EQ(d(B(a(), c())), e())
 
 All the statements above are roughly equivalent. The first statement is typical
-TestML chained transforms. Start with 'a', pass is to 'B' along with 'c', apply
+TestML1 chained transforms. Start with 'a', pass is to 'B' along with 'c', apply
 'd' to the result and assert it is equal to e.
 
 The interesting part is what are a, B, c, d and e, and where do they come from.
@@ -207,27 +207,27 @@ along implicitly in the form of `this` or `self`. It can be thought of as:
     m = get_namespace_method('x', 'b')
     m(x, c)
 
-In TestML, that's pretty much how it works internally, except that the method
+In TestML1, that's pretty much how it works internally, except that the method
 lookup involves more than one namespace:
 
     * Check the return value namespace
     * Check the bridge class namespace
     * Check the runtime namespace
 
-It is important to know that the return value is always a TestML object. Even
-if a bridge class method returns a string, it will be turned into TestML::Str
+It is important to know that the return value is always a TestML1 object. Even
+if a bridge class method returns a string, it will be turned into TestML1::Str
 object, and that namespace is the one that will be queried.
 
     *text.Lines.calibrate(*blob).yaml == *expect
     Point('text').Lines.calibrate(Point('blob')).yaml.EQ(Point('expect'))
 
-The first line is a typical TestML statement. The second is a more verbose
+The first line is a typical TestML1 statement. The second is a more verbose
 equivalent.
 
 `text`, `blob` and `expect` are point values from a data block. `Lines` is a
-TestML::Str method that returns a TestML::List object. `Point` and `EQ` are
-TestML::Runtime methods. `calibrate` and `yaml` are defined by the user in
-their TestML::Bridge subclass.
+TestML1::Str method that returns a TestML1::List object. `Point` and `EQ` are
+TestML1::Runtime methods. `calibrate` and `yaml` are defined by the user in
+their TestML1::Bridge subclass.
 
 Each method is looked up and called with the return value from the function on
 its left, plus any values passed in directly.

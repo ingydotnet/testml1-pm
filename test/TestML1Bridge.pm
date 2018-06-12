@@ -1,7 +1,7 @@
-package TestMLBridge;
+package TestML1Bridge;
 
-use base TestML::Bridge;
-use TestML::Util;
+use base TestML1::Bridge;
+use TestML1::Util;
 
 sub lowercase {
     my ($self, $string) = @_;

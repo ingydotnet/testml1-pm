@@ -6,7 +6,7 @@
 # The title of the test. Goes into a special global variable. Variables
 # strating with uppercase letter usually belong to TestML. Title may or may
 # not be used by a framework, but still nicely self-documenting.
-Title = 'A Basic TestML File'
+Title = 'A Basic TestML1 File'
 
 # The Plan global variable indicates the expected number of tests.
 Plan = 4

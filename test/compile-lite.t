@@ -10,9 +10,9 @@ BEGIN {
     plan tests => 1;
 }
 
-use TestML;
-use TestML::Compiler::Pegex;
-use TestML::Compiler::Lite;
+use TestML1;
+use TestML1::Compiler::Pegex;
+use TestML1::Compiler::Lite;
 use YAML::XS;
 
 my $testml = '
@@ -33,8 +33,8 @@ Title = "O HAI TEST";
 --- output: I LOVE LUCY
 ';
 
-my $func = TestML::Compiler::Pegex->new->compile($testml);
-my $func_lite = TestML::Compiler::Lite->new->compile($testml);
+my $func = TestML1::Compiler::Pegex->new->compile($testml);
+my $func_lite = TestML1::Compiler::Lite->new->compile($testml);
 
 is Dump($func_lite), Dump($func),
     'Lite compile matches normal compile';

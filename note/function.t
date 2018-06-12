@@ -1,4 +1,4 @@
-use TestML -run;
+use TestML1 -run;
 __DATA__
 %TestML: 1.0
 %Plan: 2

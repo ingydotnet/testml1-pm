@@ -1,9 +1,9 @@
 use strict;
 use lib -e 't' ? 't' : 'test';
-use TestML;
-use TestMLBridge;
+use TestML1;
+use TestML1Bridge;
 
-TestML->new(
+TestML1->new(
     testml => 'testml/edge-cases.tml',
-    bridge => 'TestMLBridge',
+    bridge => 'TestML1Bridge',
 )->run;

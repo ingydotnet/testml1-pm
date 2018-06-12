@@ -1,6 +1,6 @@
-package TestML::Runtime;
+package TestML1::Runtime;
 
-use TestML::Base;
+use TestML1::Base;
 
 has testml => ();
 has bridge => ();
@@ -18,7 +18,7 @@ use File::Spec();
 
 sub BUILD {
     my ($self) = @_;
-    $TestML::Runtime::Singleton = $self;
+    $TestML1::Runtime::Singleton = $self;
     $self->{base} ||= File::Basename::dirname($0);
 }
 
@@ -39,7 +39,7 @@ sub run_function {
     $self->{function} = $function;
 
     for my $statement (@{$function->statements}) {
-        if (ref($statement) eq 'TestML::Assignment') {
+        if (ref($statement) eq 'TestML1::Assignment') {
             $self->run_assignment($statement);
         }
         else {
@@ -64,7 +64,7 @@ sub apply_signature {
     for (my $i = 0; $i < @$signature; $i++) {
         my $arg = $args->[$i];
         $arg = $self->run_expression($arg)
-            if ref($arg) eq 'TestML::Expression';
+            if ref($arg) eq 'TestML1::Expression';
         $function->setvar($signature->[$i], $arg);
     }
 }
@@ -108,14 +108,14 @@ sub run_expression {
 
     my $context = undef;
     $self->{error} = undef;
-    if ($expr->isa('TestML::Expression')) {
+    if ($expr->isa('TestML1::Expression')) {
         my @calls = @{$expr->calls};
         die if @calls <= 1;
         $context = $self->run_call(shift(@calls));
         for my $call (@calls) {
             if ($self->error) {
                 next unless
-                    $call->isa('TestML::Call') and
+                    $call->isa('TestML1::Call') and
                     $call->name eq 'Catch';
             }
             $context = $self->run_call($call, $context);
@@ -133,39 +133,39 @@ sub run_expression {
 sub run_call {
     my ($self, $call, $context) = @_;
 
-    if ($call->isa('TestML::Object')) {
+    if ($call->isa('TestML1::Object')) {
         return $call;
     }
-    if ($call->isa('TestML::Function')) {
+    if ($call->isa('TestML1::Function')) {
         return $call;
     }
-    if ($call->isa('TestML::Point')) {
+    if ($call->isa('TestML1::Point')) {
         return $self->get_point($call->name);
     }
-    if ($call->isa('TestML::Call')) {
+    if ($call->isa('TestML1::Call')) {
         my $name = $call->name;
         my $callable =
             $self->function->getvar($name) ||
             $self->lookup_callable($name) ||
                 die "Can't locate '$name' callable";
-        if ($callable->isa('TestML::Object')) {
+        if ($callable->isa('TestML1::Object')) {
             return $callable;
         }
         return $callable unless $call->args or defined $context;
         $call->{args} ||= [];
         my $args = [map $self->run_expression($_), @{$call->args}];
         unshift @$args, $context if $context;
-        if ($callable->isa('TestML::Callable')) {
+        if ($callable->isa('TestML1::Callable')) {
             my $value = eval { $callable->value->(@$args) };
             if ($@) {
                 $self->{error} = $@;
-                return TestML::Error->new(value => $@);
+                return TestML1::Error->new(value => $@);
             }
-            die "'$name' did not return a TestML::Object object"
-                unless UNIVERSAL::isa($value, 'TestML::Object');
+            die "'$name' did not return a TestML1::Object object"
+                unless UNIVERSAL::isa($value, 'TestML1::Object');
             return $value;
         }
-        if ($callable->isa('TestML::Function')) {
+        if ($callable->isa('TestML1::Function')) {
             return $self->run_function($callable, $args);
         }
         die;
@@ -178,7 +178,7 @@ sub lookup_callable {
     for my $library (@{$self->function->getvar('Library')->value}) {
         if ($library->can($name)) {
             my $function = sub { $library->$name(@_) };
-            my $callable = TestML::Callable->new(value => $function);
+            my $callable = TestML1::Callable->new(value => $function);
             $self->function->setvar($name, $callable);
             return $callable;
         }
@@ -194,7 +194,7 @@ sub get_point {
         $value = '';
     }
     $value =~ s/^\\//gm;
-    return TestML::Str->new(value => $value);
+    return TestML1::Str->new(value => $value);
 }
 
 sub select_blocks {
@@ -233,7 +233,7 @@ sub compile_testml {
         $self->{testml} = $self->read_testml_file($self->testml);
     }
     $self->{function} = $self->compiler->new->compile($self->testml)
-        or die "TestML document failed to compile";
+        or die "TestML1 document failed to compile";
 }
 
 sub initialize_runtime {
@@ -241,13 +241,13 @@ sub initialize_runtime {
 
     $self->{global} = $self->function->outer;
 
-    $self->{global}->setvar(Block => TestML::Block->new);
-    $self->{global}->setvar(Label => TestML::Str->new(value => '$BlockLabel'));
-    $self->{global}->setvar(True => $TestML::Constant::True);
-    $self->{global}->setvar(False => $TestML::Constant::False);
-    $self->{global}->setvar(None => $TestML::Constant::None);
-    $self->{global}->setvar(TestNumber => TestML::Num->new(value => 0));
-    $self->{global}->setvar(Library => TestML::List->new);
+    $self->{global}->setvar(Block => TestML1::Block->new);
+    $self->{global}->setvar(Label => TestML1::Str->new(value => '$BlockLabel'));
+    $self->{global}->setvar(True => $TestML1::Constant::True);
+    $self->{global}->setvar(False => $TestML1::Constant::False);
+    $self->{global}->setvar(None => $TestML1::Constant::None);
+    $self->{global}->setvar(TestNumber => TestML1::Num->new(value => 0));
+    $self->{global}->setvar(Library => TestML1::List->new);
 
     my $library = $self->function->getvar('Library');
     for my $lib ($self->bridge, $self->library) {
@@ -292,11 +292,11 @@ sub read_testml_file {
 }
 
 #-----------------------------------------------------------------------------
-package TestML::Function;
+package TestML1::Function;
 
-use TestML::Base;
+use TestML1::Base;
 
-has type => 'Func';     # Functions are TestML typed objects
+has type => 'Func';     # Functions are TestML1 typed objects
 has signature => [];    # Input variable names
 has namespace => {};    # Lexical scoped variable stash
 has statements => [];   # Exexcutable code statements
@@ -327,76 +327,76 @@ sub forgetvar {
 }
 
 #-----------------------------------------------------------------------------
-package TestML::Assignment;
+package TestML1::Assignment;
 
-use TestML::Base;
+use TestML1::Base;
 
 has name => ();
 has expr => ();
 
 #-----------------------------------------------------------------------------
-package TestML::Statement;
+package TestML1::Statement;
 
-use TestML::Base;
+use TestML1::Base;
 
 has expr => ();
 has assert => ();
 has points => ();
 
 #-----------------------------------------------------------------------------
-package TestML::Expression;
+package TestML1::Expression;
 
-use TestML::Base;
+use TestML1::Base;
 
 has calls => [];
 
 #-----------------------------------------------------------------------------
-package TestML::Assertion;
+package TestML1::Assertion;
 
-use TestML::Base;
+use TestML1::Base;
 
 has name => ();
 has expr => ();
 
 #-----------------------------------------------------------------------------
-package TestML::Call;
+package TestML1::Call;
 
-use TestML::Base;
+use TestML1::Base;
 
 has name => ();
 has args => ();
 
 #-----------------------------------------------------------------------------
-package TestML::Callable;
+package TestML1::Callable;
 
-use TestML::Base;
+use TestML1::Base;
 has value => ();
 
 #-----------------------------------------------------------------------------
-package TestML::Block;
+package TestML1::Block;
 
-use TestML::Base;
+use TestML1::Base;
 
 has label => '';
 has points => {};
 
 #-----------------------------------------------------------------------------
-package TestML::Point;
+package TestML1::Point;
 
-use TestML::Base;
+use TestML1::Base;
 
 has name => ();
 
 #-----------------------------------------------------------------------------
-package TestML::Object;
+package TestML1::Object;
 
-use TestML::Base;
+use TestML1::Base;
 
 has value => ();
 
 sub type {
     my $type = ref($_[0]);
-    $type =~ s/^TestML::// or die "Can't find type of '$type'";
+    $type =~ s/^TestML1::// or die "Can't find type of '$type'";
     return $type;
 }
 
@@ -404,53 +404,53 @@ sub str { die "Cast from ${\ $_[0]->type} to Str is not supported" }
 sub num { die "Cast from ${\ $_[0]->type} to Num is not supported" }
 sub bool { die "Cast from ${\ $_[0]->type} to Bool is not supported" }
 sub list { die "Cast from ${\ $_[0]->type} to List is not supported" }
-sub none { $TestML::Constant::None }
+sub none { $TestML1::Constant::None }
 
 #-----------------------------------------------------------------------------
-package TestML::Str;
+package TestML1::Str;
 
-use TestML::Base;
-extends 'TestML::Object';
+use TestML1::Base;
+extends 'TestML1::Object';
 
 sub str { $_[0] }
-sub num { TestML::Num->new(
+sub num { TestML1::Num->new(
     value => ($_[0]->value =~ /^-?\d+(?:\.\d+)$/ ? ($_[0]->value + 0) : 0),
 )}
 sub bool {
-    length($_[0]->value) ? $TestML::Constant::True : $TestML::Constant::False
+    length($_[0]->value) ? $TestML1::Constant::True : $TestML1::Constant::False
 }
-sub list { TestML::List->new(value => [split //, $_[0]->value]) }
+sub list { TestML1::List->new(value => [split //, $_[0]->value]) }
 
 #-----------------------------------------------------------------------------
-package TestML::Num;
+package TestML1::Num;
 
-use TestML::Base;
-extends 'TestML::Object';
+use TestML1::Base;
+extends 'TestML1::Object';
 
-sub str { TestML::Str->new(value => $_[0]->value . "") }
+sub str { TestML1::Str->new(value => $_[0]->value . "") }
 sub num { $_[0] }
-sub bool { ($_[0]->value != 0) ? $TestML::Constant::True : $TestML::Constant::False }
+sub bool { ($_[0]->value != 0) ? $TestML1::Constant::True : $TestML1::Constant::False }
 sub list {
     my $list = [];
     $#{$list} = int($_[0]) -1;
-    TestML::List->new(value =>$list);
+    TestML1::List->new(value =>$list);
 }
 
 #-----------------------------------------------------------------------------
-package TestML::Bool;
+package TestML1::Bool;
 
-use TestML::Base;
-extends 'TestML::Object';
+use TestML1::Base;
+extends 'TestML1::Object';
 
-sub str { TestML::Str->new(value => $_[0]->value ? "1" : "") }
-sub num { TestML::Num->new(value => $_[0]->value ? 1 : 0) }
+sub str { TestML1::Str->new(value => $_[0]->value ? "1" : "") }
+sub num { TestML1::Num->new(value => $_[0]->value ? 1 : 0) }
 sub bool { $_[0] }
 
 #-----------------------------------------------------------------------------
-package TestML::List;
+package TestML1::List;
 
-use TestML::Base;
-extends 'TestML::Object';
+use TestML1::Base;
+extends 'TestML1::Object';
 has value => [];
 sub list { $_[0] }
 sub push {
@@ -459,33 +459,33 @@ sub push {
 }
 
 #-----------------------------------------------------------------------------
-package TestML::None;
+package TestML1::None;
 
-use TestML::Base;
-extends 'TestML::Object';
+use TestML1::Base;
+extends 'TestML1::Object';
 
-sub str { TestML::Str->new(value => '') }
-sub num { TestML::Num->new(value => 0) }
-sub bool { $TestML::Constant::False }
-sub list { TestML::List->new(value => []) }
-
-#-----------------------------------------------------------------------------
-package TestML::Native;
-
-use TestML::Base;
-extends 'TestML::Object';
+sub str { TestML1::Str->new(value => '') }
+sub num { TestML1::Num->new(value => 0) }
+sub bool { $TestML1::Constant::False }
+sub list { TestML1::List->new(value => []) }
 
 #-----------------------------------------------------------------------------
-package TestML::Error;
+package TestML1::Native;
 
-use TestML::Base;
-extends 'TestML::Object';
+use TestML1::Base;
+extends 'TestML1::Object';
 
 #-----------------------------------------------------------------------------
-package TestML::Constant;
+package TestML1::Error;
 
-our $True = TestML::Bool->new(value => 1);
-our $False = TestML::Bool->new(value => 0);
-our $None = TestML::None->new;
+use TestML1::Base;
+extends 'TestML1::Object';
+
+#-----------------------------------------------------------------------------
+package TestML1::Constant;
+
+our $True = TestML1::Bool->new(value => 1);
+our $False = TestML1::Bool->new(value => 0);
+our $None = TestML1::None->new;
 
 1;

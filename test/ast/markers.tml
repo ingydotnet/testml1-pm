@@ -1,31 +1,31 @@
---- !!perl/hash:TestML::Function
+--- !!perl/hash:TestML1::Function
 namespace:
-  TestML: !!perl/hash:TestML::Str
+  TestML: !!perl/hash:TestML1::Str
     value: '0.1.0'
 
 statements:
-- !!perl/hash:TestML::Assignment
+- !!perl/hash:TestML1::Assignment
   name: Plan
-  expr: !!perl/hash:TestML::Num
+  expr: !!perl/hash:TestML1::Num
     value: 2
-- !!perl/hash:TestML::Statement
-  assert: !!perl/hash:TestML::Assertion
+- !!perl/hash:TestML1::Statement
+  assert: !!perl/hash:TestML1::Assertion
     name: EQ
-    expr: !!perl/hash:TestML::Point
+    expr: !!perl/hash:TestML1::Point
       name: bar
-  expr: !!perl/hash:TestML::Point
+  expr: !!perl/hash:TestML1::Point
     name: foo
   points:
   - foo
   - bar
 
 data:
-- !!perl/hash:TestML::Block
+- !!perl/hash:TestML1::Block
   label: Test One
   points:
     foo: Hello
     bar: Hello
-- !!perl/hash:TestML::Block
+- !!perl/hash:TestML1::Block
   label: Test Two
   points:
     foo: 'O HAI

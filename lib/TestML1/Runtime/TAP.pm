@@ -1,10 +1,10 @@
 use Test::Builder;
-use TestML::Runtime;
+use TestML1::Runtime;
 
-package TestML::Runtime::TAP;
+package TestML1::Runtime::TAP;
 
-use TestML::Base;
-extends 'TestML::Runtime';
+use TestML1::Base;
+extends 'TestML1::Runtime';
 
 has tap_object => sub { Test::Builder->new };
 has planned => 0;
@@ -92,7 +92,7 @@ sub assert_HAS {
     my $assertion = (index($got, $has) >= 0);
     if (not $assertion) {
         my $msg = <<"...";
-Failed TestML HAS (~~) assertion. This text:
+Failed TestML1 HAS (~~) assertion. This text:
 '$got'
 does not contain this string:
 '$has'

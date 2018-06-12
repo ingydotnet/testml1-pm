@@ -1,5 +1,5 @@
-use TestML;
-TestML->new(
+use TestML1;
+TestML1->new(
     testml => <<'...'
 %TestML 0.1.0
 Plan = 1

@@ -1,6 +1,6 @@
-package TestML;
+package TestML1;
 
-use TestML::Base;
+use TestML1::Base;
 our $VERSION = '0.54';
 
 has runtime => ();
@@ -23,23 +23,23 @@ sub run {
 sub set_default_classes {
     my ($self) = @_;
     if (not $self->runtime) {
-        require TestML::Runtime::TAP;
-        $self->{runtime} = 'TestML::Runtime::TAP';
+        require TestML1::Runtime::TAP;
+        $self->{runtime} = 'TestML1::Runtime::TAP';
     }
     if (not $self->compiler) {
-        require TestML::Compiler::Pegex;
-        $self->{compiler} = 'TestML::Compiler::Pegex';
+        require TestML1::Compiler::Pegex;
+        $self->{compiler} = 'TestML1::Compiler::Pegex';
     }
     if (not $self->bridge) {
-        require TestML::Bridge;
-        $self->{bridge} = 'TestML::Bridge';
+        require TestML1::Bridge;
+        $self->{bridge} = 'TestML1::Bridge';
     }
     if (not $self->library) {
-        require TestML::Library::Standard;
-        require TestML::Library::Debug;
+        require TestML1::Library::Standard;
+        require TestML1::Library::Debug;
         $self->{library} = [
-            'TestML::Library::Standard',
-            'TestML::Library::Debug',
+            'TestML1::Library::Standard',
+            'TestML1::Library::Debug',
         ];
     }
 }

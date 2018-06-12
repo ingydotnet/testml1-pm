@@ -1,6 +1,6 @@
 use Test::More tests => 21;
 
-use TestML::Compiler::Pegex;
+use TestML1::Compiler::Pegex;
 
 my $testml = '
 # A comment
@@ -20,8 +20,8 @@ Title = "O HAI TEST";
 --- output: I LOVE LUCY
 ';
 
-my $func = TestML::Compiler::Pegex->new->compile($testml);
-ok $func, 'TestML string matches against TestML grammar';
+my $func = TestML1::Compiler::Pegex->new->compile($testml);
+ok $func, 'TestML1 string matches against TestML1 grammar';
 is $func->namespace->{TestML}->value, '0.1.0', 'Version parses';
 is $func->statements->[0]->expr->value, 2, 'Plan parses';
 is $func->statements->[1]->expr->value, 'O HAI TEST', 'Title parses';
@@ -34,14 +34,14 @@ is join('-', @{$statement->points}), 'input-output',
 
 is scalar(@{$statement->expr->calls}), 2, 'Expression has two calls';
 my $expr = $statement->expr;
-ok $expr->calls->[0]->isa('TestML::Point'), 'First sub is a Point';
+ok $expr->calls->[0]->isa('TestML1::Point'), 'First sub is a Point';
 is $expr->calls->[0]->name, 'input', 'Point name is "input"';
 is $expr->calls->[1]->name, 'uppercase', 'Second sub is "uppercase"';
 
 is $statement->assert->name, 'EQ', 'Assertion is "EQ"';
 
 $expr = $statement->assert->expr;
-ok $expr->isa('TestML::Point'), 'First sub is a Point';
+ok $expr->isa('TestML1::Point'), 'First sub is a Point';
 is $expr->name, 'output', 'Point name is "output"';
 
 is scalar(@{$func->data}), 2, 'Two data blocks';

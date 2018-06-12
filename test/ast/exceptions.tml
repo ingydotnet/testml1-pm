@@ -1,53 +1,53 @@
---- !!perl/hash:TestML::Function
+--- !!perl/hash:TestML1::Function
 namespace:
-  TestML: !!perl/hash:TestML::Str
+  TestML: !!perl/hash:TestML1::Str
     value: 0.1.0
 
 statements:
-- !!perl/hash:TestML::Assignment
+- !!perl/hash:TestML1::Assignment
   name: Plan
-  expr: !!perl/hash:TestML::Num
+  expr: !!perl/hash:TestML1::Num
     value: 2
-- !!perl/hash:TestML::Statement
-  expr: !!perl/hash:TestML::Expression
+- !!perl/hash:TestML1::Statement
+  expr: !!perl/hash:TestML1::Expression
     calls:
-    - !!perl/hash:TestML::Call
+    - !!perl/hash:TestML1::Call
       name: Throw
       args:
-      - !!perl/hash:TestML::Point
+      - !!perl/hash:TestML1::Point
         name: error
-    - !!perl/hash:TestML::Call
+    - !!perl/hash:TestML1::Call
       name: NonExistingMethod
-    - !!perl/hash:TestML::Call
+    - !!perl/hash:TestML1::Call
       name: Catch
-  assert: !!perl/hash:TestML::Assertion
+  assert: !!perl/hash:TestML1::Assertion
     name: HAS
-    expr: !!perl/hash:TestML::Point
+    expr: !!perl/hash:TestML1::Point
       name: match
   points:
   - error
   - match
-- !!perl/hash:TestML::Assignment
+- !!perl/hash:TestML1::Assignment
   name: message
-  expr: !!perl/hash:TestML::Str
+  expr: !!perl/hash:TestML1::Str
     value: blowed up
-- !!perl/hash:TestML::Statement
-  expr: !!perl/hash:TestML::Expression
+- !!perl/hash:TestML1::Statement
+  expr: !!perl/hash:TestML1::Expression
     calls:
-    - !!perl/hash:TestML::Call
+    - !!perl/hash:TestML1::Call
       name: Throw
       args:
-      - !!perl/hash:TestML::Call
+      - !!perl/hash:TestML1::Call
         name: message
-    - !!perl/hash:TestML::Call
+    - !!perl/hash:TestML1::Call
       name: Catch
-  assert: !!perl/hash:TestML::Assertion
+  assert: !!perl/hash:TestML1::Assertion
     name: EQ
-    expr: !!perl/hash:TestML::Call
+    expr: !!perl/hash:TestML1::Call
       name: message
 
 data:
-- !!perl/hash:TestML::Block
+- !!perl/hash:TestML1::Block
   label: Error message from data
   points:
     error: 'O NOES!

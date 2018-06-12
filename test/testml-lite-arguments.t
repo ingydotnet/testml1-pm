@@ -1,11 +1,11 @@
 use strict;
 use lib -e 't' ? 't' : 'test';
-use TestML;
-use TestML::Compiler::Lite;
-use TestMLBridge;
+use TestML1;
+use TestML1::Compiler::Lite;
+use TestML1Bridge;
 
-TestML->new(
+TestML1->new(
     testml => 'testml/arguments.tml',
-    bridge => 'TestMLBridge',
-    compiler => 'TestML::Compiler::Lite',
+    bridge => 'TestML1Bridge',
+    compiler => 'TestML1::Compiler::Lite',
 )->run;

@@ -1,6 +1,6 @@
-package TestML::Compiler::Pegex::Grammar;
+package TestML1::Compiler::Pegex::Grammar;
 
-use TestML::Base;
+use TestML1::Base;
 extends 'Pegex::Grammar';
 
 use constant file => 'ext/testml-pgx/testml.pgx';

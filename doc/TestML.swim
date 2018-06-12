@@ -37,10 +37,10 @@ meta Plan statement in the document.
 
 To run this test you would have a normal test file that looks like this:
 
-  use TestML;
+  use TestML1;
   use t::Bridge;
 
-  TestML->new(
+  TestML1->new(
       testml => 'testml/encode.tml',
       bridge => 't::Bridge',
   )->run;

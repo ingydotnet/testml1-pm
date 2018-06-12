@@ -1,9 +1,9 @@
-package TestML::Library::Standard;
+package TestML1::Library::Standard;
 
-use TestML::Base;
-extends 'TestML::Library';
+use TestML1::Base;
+extends 'TestML1::Library';
 
-use TestML::Util;
+use TestML1::Util;
 
 sub Get {
     my ($self, $key) = @_;
@@ -28,7 +28,7 @@ sub Type {
 sub Catch {
     my ($self) = @_;
     my $error = $self->runtime->error
-        or die "Catch called but no TestML error found";
+        or die "Catch called but no TestML1 error found";
     $error =~ s/ at .* line \d+\.\n\z//;
     $self->runtime->{error} = undef;
     return str($error);

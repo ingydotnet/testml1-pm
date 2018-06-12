@@ -1,10 +1,10 @@
-package TestML::Compiler::Pegex;
+package TestML1::Compiler::Pegex;
 
-use TestML::Base;
-extends 'TestML::Compiler';
+use TestML1::Base;
+extends 'TestML1::Compiler';
 
-use TestML::Compiler::Pegex::Grammar;
-use TestML::Compiler::Pegex::AST;
+use TestML1::Compiler::Pegex::Grammar;
+use TestML1::Compiler::Pegex::AST;
 use Pegex::Parser;
 
 has parser => ();
@@ -13,13 +13,13 @@ sub compile_code {
     my ($self) = @_;
 
     $self->{parser} = Pegex::Parser->new(
-        grammar => TestML::Compiler::Pegex::Grammar->new,
-        receiver => TestML::Compiler::Pegex::AST->new,
+        grammar => TestML1::Compiler::Pegex::Grammar->new,
+        receiver => TestML1::Compiler::Pegex::AST->new,
     );
     $self->fixup_grammar;
 
     $self->parser->parse($self->code, 'code_section')
-        or die "Parse TestML code section failed";
+        or die "Parse TestML1 code section failed";
 }
 
 sub compile_data {
@@ -27,7 +27,7 @@ sub compile_data {
 
     if (length $self->data) {
         $self->parser->parse($self->data, 'data_section')
-            or die "Parse TestML data section failed";
+            or die "Parse TestML1 data section failed";
     }
 
     $self->{function} = $self->parser->receiver->function;

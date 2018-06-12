@@ -1,72 +1,72 @@
---- !!perl/hash:TestML::Function
+--- !!perl/hash:TestML1::Function
 namespace:
-  TestML: !!perl/hash:TestML::Str
+  TestML: !!perl/hash:TestML1::Str
     value: 0.1.0
 statements:
-- !!perl/hash:TestML::Assignment
+- !!perl/hash:TestML1::Assignment
   name: Title
-  expr: !!perl/hash:TestML::Str
-    value: A Basic TestML File
-- !!perl/hash:TestML::Assignment
+  expr: !!perl/hash:TestML1::Str
+    value: A Basic TestML1 File
+- !!perl/hash:TestML1::Assignment
   name: Plan
-  expr: !!perl/hash:TestML::Num
+  expr: !!perl/hash:TestML1::Num
     value: 4
-- !!perl/hash:TestML::Statement
-  assert: !!perl/hash:TestML::Assertion
+- !!perl/hash:TestML1::Statement
+  assert: !!perl/hash:TestML1::Assertion
     name: EQ
-    expr: !!perl/hash:TestML::Point
+    expr: !!perl/hash:TestML1::Point
       name: upper
-  expr: !!perl/hash:TestML::Expression
+  expr: !!perl/hash:TestML1::Expression
     calls:
-    - !!perl/hash:TestML::Point
+    - !!perl/hash:TestML1::Point
       name: text
-    - !!perl/hash:TestML::Call
+    - !!perl/hash:TestML1::Call
       name: uppercase
   points:
   - text
   - upper
-- !!perl/hash:TestML::Statement
-  assert: !!perl/hash:TestML::Assertion
-    expr: !!perl/hash:TestML::Point
+- !!perl/hash:TestML1::Statement
+  assert: !!perl/hash:TestML1::Assertion
+    expr: !!perl/hash:TestML1::Point
       name: lower
     name: EQ
-  expr: !!perl/hash:TestML::Expression
+  expr: !!perl/hash:TestML1::Expression
     calls:
-    - !!perl/hash:TestML::Point
+    - !!perl/hash:TestML1::Point
       name: text
-    - !!perl/hash:TestML::Call
+    - !!perl/hash:TestML1::Call
       name: lowercase
   points:
   - text
   - lower
-- !!perl/hash:TestML::Statement
-  assert: !!perl/hash:TestML::Assertion
-    expr: !!perl/hash:TestML::Expression
+- !!perl/hash:TestML1::Statement
+  assert: !!perl/hash:TestML1::Assertion
+    expr: !!perl/hash:TestML1::Expression
       calls:
-      - !!perl/hash:TestML::Point
+      - !!perl/hash:TestML1::Point
         name: upper
-      - !!perl/hash:TestML::Call
+      - !!perl/hash:TestML1::Call
         name: lowercase
-      - !!perl/hash:TestML::Call
+      - !!perl/hash:TestML1::Call
         name: uppercase
     name: EQ
-  expr: !!perl/hash:TestML::Expression
+  expr: !!perl/hash:TestML1::Expression
     calls:
-    - !!perl/hash:TestML::Point
+    - !!perl/hash:TestML1::Point
       name: lower
-    - !!perl/hash:TestML::Call
+    - !!perl/hash:TestML1::Call
       name: uppercase
   points:
   - lower
   - upper
 data:
-- !!perl/hash:TestML::Block
+- !!perl/hash:TestML1::Block
   label: Test One
   points:
     text: I like Pie.
     upper: I LIKE PIE.
     lower: i like pie.
-- !!perl/hash:TestML::Block
+- !!perl/hash:TestML1::Block
   label: Test Two
   points:
     text: 'Say it,

@@ -1,8 +1,8 @@
-use TestML::Runtime;
+use TestML1::Runtime;
 
-package TestML::Compiler;
+package TestML1::Compiler;
 
-use TestML::Base;
+use TestML1::Base;
 
 has code => ();
 has data => ();
@@ -23,7 +23,7 @@ sub compile {
 
     $self->function->namespace->{TestML} = $self->directives->{TestML};
 
-    $self->function->outer(TestML::Function->new);
+    $self->function->outer(TestML1::Function->new);
     return $self->function;
 }
 
@@ -56,12 +56,12 @@ sub preprocess {
                 die "More than one TestML directive found"
                     if $self->directives->{TestML};
                 $self->directives->{TestML} =
-                    TestML::Str->new(value => $value);
+                    TestML1::Str->new(value => $value);
                 next;
             }
             $order_error = 1 unless $self->directives->{TestML};
             if ($directive eq 'Include') {
-                my $runtime = $TestML::Runtime::Singleton
+                my $runtime = $TestML1::Runtime::Singleton
                     or die "Can't process Include. No runtime available";
                 my $include = ref($self)->new;
                 $include->preprocess($runtime->read_testml_file($value));

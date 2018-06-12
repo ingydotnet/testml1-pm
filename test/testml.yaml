@@ -5,13 +5,13 @@ test_file_template: |
   [% testml_setup_comment -%]
   use strict;
   use lib -e 't' ? 't' : 'test';
-  use TestML;
-  use TestMLBridge;
+  use TestML1;
+  use TestML1Bridge;
   use File::Spec;
 
-  TestML->new(
+  TestML1->new(
       testml => File::Spec->catfile(qw{[% path.join(' ') %]}),
-      bridge => 'TestMLBridge',
+      bridge => 'TestML1Bridge',
   )->run;
 exclude_testml_files:
 - comments.tml
