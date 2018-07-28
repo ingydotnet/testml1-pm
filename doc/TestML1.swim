@@ -1,9 +1,4 @@
-TestML
-======
-
-A Generic Software Testing Meta Language
-
-<badge travis coveralls ingydotnet/testml-pm>
+<<<cpan-head>>>
 
 = Synopsis
 
@@ -69,15 +64,4 @@ same as Test::Base.
 * [http://www.testml.org/]
 * [irc://irc.freenode.net#testml]
 
-= Author
-
-Ingy döt Net <ingy@cpan.org>
-
-= Copyright and License
-
-Copyright 2009-2018. Ingy döt Net.
-
-This program is free software; you can redistribute it and/or modify it under
-the same terms as Perl itself.
-
-See http://www.perl.com/perl/misc/Artistic.html
+<<<cpan-tail>>>
