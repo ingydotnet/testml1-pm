@@ -17,8 +17,8 @@ author:
   freenode: ingy
 
 devel:
-  git: https://github.com/ingydotnet/testml-pm
-  bug: https://github.com/ingydotnet/testml-pm/issues
+  git: https://github.com/ingydotnet/testml1-pm
+  bug: https://github.com/ingydotnet/testml1-pm/issues
   irc: irc.freenode.net#testml
 
 requires:
