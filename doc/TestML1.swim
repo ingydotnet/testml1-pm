@@ -1,5 +1,12 @@
 <<<cpan-head>>>
 
+= Status
+
+TestML1 is DEPRECATED.
+
+Actually TestML1 is the old 2009-2018 version of TestML, in case you still need
+it. Check out the new TestML.
+
 = Synopsis
 
   # file t/testml/encode.tml

@@ -1,8 +1,8 @@
 =meta: 0.0.2
 
 name: TestML1
-version: 0.56
-abstract: A Generic Software Testing Meta Language
+version: 0.57
+abstract: DEPRECATED Generic Software Testing Meta Language
 homepage: http://testml.org
 language: perl
 license: perl
@@ -28,4 +28,5 @@ requires:
 test:
   requires:
     Capture::Tiny: 0
+    Test::Differences: 0
   cmd: prove -lv test/

@@ -1,4 +1,9 @@
 ---
+version: 0.57
+date:    Sat Jul 28 08:01:20 PDT 2018
+changes:
+- Add Test::Differences to test deps
+---
 version: 0.56
 date:    Fri Jul 27 19:17:36 PDT 2018
 changes:
