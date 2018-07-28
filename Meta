@@ -1,7 +1,7 @@
 =meta: 0.0.2
 
 name: TestML1
-version: 0.55
+version: 0.56
 abstract: A Generic Software Testing Meta Language
 homepage: http://testml.org
 language: perl
