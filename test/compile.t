@@ -39,6 +39,7 @@ test('testml/semicolons.tml', 'TestML1::Compiler::Lite');
 sub test {
     my ($file, $compiler) = @_;
     (my $filename = $file) =~ s!(.*)/!!;
+    local $YAML::XS::LoadBlessed = 1;
     my $runtime = TestML1::Runtime->new(base => "$t/$1");
     my $testml = $runtime->read_testml_file($filename);
     my $ast1 = $compiler->new->compile($testml);
